@@ -71,7 +71,7 @@ public abstract class TitleScreenMixin extends Screen {
 
         if (SimpleMainMenuLibClient.isSingleplayerVisible()) {
             Button.Builder singlePlayerButtonWidgetBuilder = Button.builder(Component.translatable("menu.singleplayer"), (button -> {
-                        Minecraft.getInstance().setScreen(new SelectWorldScreen((self)));
+                        Minecraft.getInstance().setScreenAndShow(new SelectWorldScreen((self)));
                     }))
                     .size(200, 20)
                     .pos(self.width / 2 - 100, y);
@@ -107,7 +107,7 @@ public abstract class TitleScreenMixin extends Screen {
         if (SimpleMainMenuLibClient.isMultiplayerVisible()) {
             Button.Builder multiplayerButtonWidgetBuilder = Button.builder(Component.translatable("menu.multiplayer"), button -> {
                 Screen screen = Minecraft.getInstance().options.skipMultiplayerWarning ? new JoinMultiplayerScreen(self) : new SafetyScreen(self);
-                Minecraft.getInstance().setScreen(screen);
+                Minecraft.getInstance().setScreenAndShow(screen);
             }).pos(self.width / 2 - 100, y + (spacingY * buttonYMulti++)).size(200, 20);
 
             if (isDisabled)
@@ -121,8 +121,8 @@ public abstract class TitleScreenMixin extends Screen {
 
         if (SimpleMainMenuLibClient.isModsVisible()) {
             Button.Builder modsButtonWidgetBuilder = Button.builder(ModMenu.createModsButtonText(true), button -> {
-                Screen modsScreen = ModMenuApi.createModsScreen(Minecraft.getInstance().screen);
-                Minecraft.getInstance().setScreen(modsScreen);
+                Screen modsScreen = ModMenuApi.createModsScreen(Minecraft.getInstance().gui.screen());
+                Minecraft.getInstance().setScreenAndShow(modsScreen);
             }).pos(self.width / 2 + 104, y + spacingY).size(50, 20);
 
             Button modsButtonWidget = modsButtonWidgetBuilder.build();

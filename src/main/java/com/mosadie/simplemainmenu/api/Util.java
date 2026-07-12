@@ -114,12 +114,12 @@ public class Util {
                 SimpleMainMenuLibClient.LOGGER.info("Loading world...");
                 Minecraft.getInstance().createWorldOpenFlows().openWorld(worldName, () -> {
                     SimpleMainMenuLibClient.LOGGER.info("World load cancelled.");
-                    Minecraft.getInstance().setScreen(new TitleScreen());
+                    Minecraft.getInstance().setScreenAndShow(new TitleScreen());
                 });
             } else {
                 SimpleMainMenuLibClient.LOGGER.warn("World " + worldName + " does not exist!");
                 if (Minecraft.getInstance().level == null)
-                    Minecraft.getInstance().setScreen(new AlertScreen(() -> Minecraft.getInstance().setScreen(new TitleScreen()), Component.translatable("text.smm-lib.error.worldnotfound.title"), Component.translatable("text.smm-lib.error.worldnotfound.body", worldName), Component.translatable("gui.toTitle"), true));
+                    Minecraft.getInstance().setScreenAndShow(new AlertScreen(() -> Minecraft.getInstance().setScreenAndShow(new TitleScreen()), Component.translatable("text.smm-lib.error.worldnotfound.title"), Component.translatable("text.smm-lib.error.worldnotfound.body", worldName), Component.translatable("gui.toTitle"), true));
             }
         });
     }
